@@ -1,0 +1,135 @@
+<html lang="sv">
+<head>
+    
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-straight/css/uicons-regular-straight.css'>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Ceviche+One&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level design</title>
+
+</head>
+
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-image: url('img/vänesborg_Ö.png'); ;
+        }
+        .banner {
+            background-color: #333;
+            color: white;
+            height: 170px;
+            z-index: 10;
+            text-align: center;
+            padding: 20px 0;
+        }
+        .banner button {
+            background-color: #555;
+            color: white;
+            border: none;
+            padding: 5px 5px;
+            border-radius: 100px;
+            height: 50px;
+            width: 50px;
+            margin: 1px;
+            cursor: pointer;
+            font-family: 'Archivo', sans-serif;
+            font-size: 25px;
+        }
+        .banner button:hover {
+            background-color: #777;
+            scale: 1.1;
+        }
+        .logga {
+            width: 150px;
+            height: auto;
+            position: absolute;
+            top: 40;
+            right: 40;
+        }
+        .vänster-kant {
+            width: 350px;
+            height: auto;
+            z-index: 9;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .banner h1 {
+            font-family: 'Archivo', sans-serif;
+            font-size: 2.5em;
+            margin: 0;
+        }
+        .banner p {
+            font-family: 'Archivo', sans-serif;
+            font-size: 1.2em;
+        }
+
+        .newButton {
+            background-color: #555;
+        }
+
+        button {
+            background-color: #777;
+        }
+
+        .custom-button {
+            background-image: url('img/knapp1.png');
+            background-size: cover;
+            background-position: center;
+            background-color: rgba(0, 0, 0, 0);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            border-radius: 40%;
+            border: none;
+            width: 80px;
+            height: 50px;
+            cursor: pointer;
+        }
+
+    </style>
+
+<body>
+
+    <div class="banner">
+        <h1>Level design</h1>
+        <p>Välkommen till vår nivådesignsida! Här kan du utforska och skapa fantastiska nivåer för ditt spel.</p>
+        <button>
+            <i class="fi fi-rr-home"></i>
+        </button>
+        <button>
+            <i class="fi fi-rr-arrow-small-left"></i>
+        </button>
+        <button>
+            <i class="fi fi-rr-arrow-small-right"></i>
+        </button>
+        <button>
+            <i class="fi fi-rr-interrogation"></i>
+        </button>
+
+        <img src="img/vit_stående_1rad.png" class="logga">
+        <img src="img/horn_vanster_upp_4.png" class="vänster-kant">
+
+    </div>
+    
+    <script>
+        const newButton = document.createElement('button');
+        newButton.classList.add('custom-button'); // Lägg till CSS-klassen
+
+        newButton.addEventListener('click', () => {
+            alert('Knappen klickades!');
+        });
+
+        document.body.appendChild(newButton);
+    </script>
+
+</body>
+</html>

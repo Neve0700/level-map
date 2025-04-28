@@ -144,65 +144,94 @@
     </div>
     
     <script>
-const newButton = document.createElement('button');
-newButton.classList.add('custom-button');
+function createCustomButton(top, left) {
+    const button = document.createElement('button');
+    button.classList.add('custom-button');
+    button.style.top = top;
+    button.style.left = left;
 
-newButton.addEventListener('click', () => {
-    // Zooma in body och bakgrund
-    document.body.style.transform = 'scale(1.9)';
-    document.body.style.transition = 'transform 1s ease';
-    document.body.style.backgroundSize = '200%'; // Ändra bakgrundsstorlek
-    document.body.style.transition = 'background-size 1s ease';
+    button.addEventListener('click', (event) => {
+        // Hämta klickposition
+        const rect = document.body.getBoundingClientRect();
+        const clickX = event.clientX - rect.left;
+        const clickY = event.clientY - rect.top;
 
-    const playButton = document.createElement('button');
-    playButton.textContent = 'Spela spelet';
-    playButton.classList.add('choice-button');
-    playButton.addEventListener('click', () => {
-        window.location.href = 'https://neve0700.github.io/Grott_aventyret/';
-    });
-
-    const backButton = document.createElement('button');
-    backButton.textContent = 'Gå tillbaka';
-    backButton.classList.add('choice-button');
-    backButton.addEventListener('click', () => {
-        // Återställ zoom och bakgrundsstorlek
-        document.body.style.transform = 'scale(1)';
+        // Zooma in på klickpositionen
+        document.body.style.transformOrigin = `${clickX}px ${clickY}px`;
+        document.body.style.transform = 'scale(1.9)';
         document.body.style.transition = 'transform 1s ease';
-        document.body.style.backgroundSize = '110%'; // Återställ bakgrundsstorlek
+        document.body.style.backgroundSize = '200%';
         document.body.style.transition = 'background-size 1s ease';
 
-        document.body.removeChild(playButton);
-        document.body.removeChild(backButton);
+        // Göm andra knappar, behåll den klickade knappen synlig
+        document.querySelectorAll('.custom-button').forEach(btn => {
+            if (btn !== button) {
+                btn.style.display = 'none';
+            }
+        });
+
+        const playButton = document.createElement('button');
+        playButton.textContent = 'Spela spelet';
+        playButton.classList.add('choice-button');
+        playButton.addEventListener('click', () => {
+            window.location.href = 'https://neve0700.github.io/Grott_aventyret/';
+        });
+
+        const backButton = document.createElement('button');
+        backButton.textContent = 'Gå tillbaka';
+        backButton.classList.add('choice-button');
+        backButton.addEventListener('click', () => {
+            // Återställ zoom och bakgrundsstorlek
+            document.body.style.transform = 'scale(1)';
+            document.body.style.transformOrigin = 'center center';
+            document.body.style.transition = 'transform 1s ease';
+            document.body.style.backgroundSize = '110%';
+            document.body.style.transition = 'background-size 1s ease';
+
+            // Visa andra knappar igen
+            document.querySelectorAll('.custom-button').forEach(btn => {
+                btn.style.display = 'block';
+            });
+
+            document.body.removeChild(playButton);
+            document.body.removeChild(backButton);
+        });
+
+        document.body.appendChild(playButton);
+        document.body.appendChild(backButton);
+
+        // Placera knapparna i mitten av skärmen
+        playButton.style.position = 'absolute';
+        playButton.style.top = '50%';
+        playButton.style.left = '50%';
+        playButton.style.transform = 'translate(-50%, -60%)';
+
+        backButton.style.position = 'absolute';
+        backButton.style.top = '60%';
+        backButton.style.left = '50%';
+        backButton.style.transform = 'translate(-50%, -50%)';
     });
 
-    document.body.appendChild(playButton);
-    document.body.appendChild(backButton);
+    document.body.appendChild(button);
+    return button;
+}
 
-    playButton.style.position = 'absolute';
-    playButton.style.top = '60%';
-    playButton.style.left = '50%';
-    playButton.style.transform = 'translateX(-50%)';
-
-    backButton.style.position = 'absolute';
-    backButton.style.top = '68%';
-    backButton.style.left = '50%';
-    backButton.style.transform = 'translateX(-50%)';
-});
-
-document.body.appendChild(newButton);
+const button1 = createCustomButton('38%', '15%');
+const button2 = createCustomButton('50%', '30%');
+const button3 = createCustomButton('40%', '75%');
 
 document.addEventListener('mousemove', (event) => {
     const x = (event.clientX / window.innerWidth - 0.5) * 15;
     const y = (event.clientY / window.innerHeight - 0.5) * 15;
 
-    // Uppdatera bakgrundens position
     document.body.style.backgroundPosition = `${50 + x}% ${50 + y}%`;
 
-    
-    const buttonX = -x * 2; 
-    const buttonY = -y * 4;
+    const buttonX = -x * 1.7;
+    const buttonY = -y * 4.5;
 
-    newButton.style.transform = `translate(${buttonX}px, ${buttonY}px)`;
+    button1.style.transform = `translate(${buttonX}px, ${buttonY}px)`;
+    button2.style.transform = `translate(${buttonX}px, ${buttonY}px)`;
+    button3.style.transform = `translate(${buttonX}px, ${buttonY}px)`;
 });
 </script>
 

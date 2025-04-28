@@ -28,13 +28,10 @@
             
         }
 
-        #move{
-    background: linear-gradient(
-        to right,
-        #ff8e8e,
-        #ff006a
-        ) ;
-            height: 300px;
+        #move1{
+            background-image: url('img/snigel.png');
+            background-size: cover;
+            height: 50px;
             aspect-ratio: 1;
             left: 50%;
             top: 50%;
@@ -136,6 +133,8 @@
 
 <body>
 
+    <div id="move1"></div>
+
     <div class="banner">
         <h1>Level design</h1>
         <p>Välkommen till vår nivådesignsida! Här kan du utforska och skapa fantastiska nivåer för ditt spel.</p>
@@ -158,7 +157,8 @@
     </div>
     
     <script>
-const move = document.getElementById("move");
+
+const move = document.getElementById("move1");
 
 document.body.onpointermove = event => {
     const { clientX, clientY } = event;

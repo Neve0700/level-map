@@ -27,6 +27,20 @@
             background-image: url('img/vänesborg_Ö.png');
             
         }
+
+        #move{
+    background: linear-gradient(
+        to right,
+        #ff8e8e,
+        #ff006a
+        ) ;
+            height: 300px;
+            aspect-ratio: 1;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            position: fixed;
+}
         .banner {
             background-color: #333;
             color: white;
@@ -144,6 +158,19 @@
     </div>
     
     <script>
+const move = document.getElementById("move");
+
+document.body.onpointermove = event => {
+    const { clientX, clientY } = event;
+
+    move.animate({
+        left: `${clientX}px`,
+        top: `${clientY}px`
+    
+    }, {duration: 1000, fill: "forwards"})
+
+}
+        
 function createCustomButton(top, left) {
     const button = document.createElement('button');
     button.classList.add('custom-button');

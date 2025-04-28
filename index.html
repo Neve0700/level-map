@@ -18,17 +18,23 @@
             margin: 0;
             padding: 0;
             width: 100%;
-            background-size: cover;
+            height: 100vh;
+            overflow: hidden;
+            background-size: 110%; 
             background-repeat: no-repeat;
-            background-image: url('img/vänesborg_Ö.png'); ;
+            background-position: center;
+            background-attachment: fixed; 
+            background-image: url('img/vänesborg_Ö.png');
+            
         }
         .banner {
             background-color: #333;
             color: white;
             height: 170px;
-            z-index: 10;
+            z-index: 12;
             text-align: center;
             padding: 20px 0;
+            visibility: hidden;
         }
         .banner button {
             background-color: #555;
@@ -57,7 +63,7 @@
         .vänster-kant {
             width: 350px;
             height: auto;
-            z-index: 9;
+            z-index: 0; 
             position: absolute;
             top: 0;
             left: 0;
@@ -73,11 +79,11 @@
         }
 
         .newButton {
-            background-color: #555;
+            background-color: #2f4bff;
         }
 
         button {
-            background-color: #777;
+            background-color: #3863ff;
         }
 
         .custom-button {
@@ -89,12 +95,29 @@
             top: 50%;
             left: 50%;
             border-radius: 40%;
-            border: none;
+            border: 10px ;
             width: 80px;
             height: 50px;
             cursor: pointer;
         }
 
+        .choice-button {
+            background-color: #2067ff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            border: 3px solid #071ba0;
+            font-family: 'Archivo', sans-serif;
+            font-size: 18px;
+            margin: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .choice-button:hover {
+            background-color: #1d4db5;
+        }
     </style>
 
 <body>
@@ -121,15 +144,67 @@
     </div>
     
     <script>
-        const newButton = document.createElement('button');
-        newButton.classList.add('custom-button'); 
+const newButton = document.createElement('button');
+newButton.classList.add('custom-button');
 
-        newButton.addEventListener('click', () => {
-            alert('Knappen klickades!');
-        });
+newButton.addEventListener('click', () => {
+    // Zooma in body och bakgrund
+    document.body.style.transform = 'scale(1.9)';
+    document.body.style.transition = 'transform 1s ease';
+    document.body.style.backgroundSize = '200%'; // Ändra bakgrundsstorlek
+    document.body.style.transition = 'background-size 1s ease';
 
-        document.body.appendChild(newButton);
-    </script>
+    const playButton = document.createElement('button');
+    playButton.textContent = 'Spela spelet';
+    playButton.classList.add('choice-button');
+    playButton.addEventListener('click', () => {
+        window.location.href = 'https://neve0700.github.io/Grott_aventyret/';
+    });
+
+    const backButton = document.createElement('button');
+    backButton.textContent = 'Gå tillbaka';
+    backButton.classList.add('choice-button');
+    backButton.addEventListener('click', () => {
+        // Återställ zoom och bakgrundsstorlek
+        document.body.style.transform = 'scale(1)';
+        document.body.style.transition = 'transform 1s ease';
+        document.body.style.backgroundSize = '110%'; // Återställ bakgrundsstorlek
+        document.body.style.transition = 'background-size 1s ease';
+
+        document.body.removeChild(playButton);
+        document.body.removeChild(backButton);
+    });
+
+    document.body.appendChild(playButton);
+    document.body.appendChild(backButton);
+
+    playButton.style.position = 'absolute';
+    playButton.style.top = '60%';
+    playButton.style.left = '50%';
+    playButton.style.transform = 'translateX(-50%)';
+
+    backButton.style.position = 'absolute';
+    backButton.style.top = '68%';
+    backButton.style.left = '50%';
+    backButton.style.transform = 'translateX(-50%)';
+});
+
+document.body.appendChild(newButton);
+
+document.addEventListener('mousemove', (event) => {
+    const x = (event.clientX / window.innerWidth - 0.5) * 15;
+    const y = (event.clientY / window.innerHeight - 0.5) * 15;
+
+    // Uppdatera bakgrundens position
+    document.body.style.backgroundPosition = `${50 + x}% ${50 + y}%`;
+
+    
+    const buttonX = -x * 2; 
+    const buttonY = -y * 4;
+
+    newButton.style.transform = `translate(${buttonX}px, ${buttonY}px)`;
+});
+</script>
 
 </body>
 </html>

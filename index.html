@@ -162,18 +162,19 @@
     <script>
 
 const move = document.getElementById("move1");
+let isPaused = false; // Variabel för att pausa snigelns rörelse och parallaxeffekten
 
 document.body.onpointermove = event => {
+    if (isPaused) return; // Stoppa rörelsen om den är pausad
+
     const { clientX, clientY } = event;
 
     move.animate({
         left: `${clientX}px`,
         top: `${clientY}px`
-    
-    }, {duration: 15000, fill: "forwards"})
+    }, { duration: 10000, fill: "forwards" });
+};
 
-}
-        
 function createCustomButton(top, left) {
     const button = document.createElement('button');
     button.classList.add('custom-button');
@@ -184,6 +185,9 @@ function createCustomButton(top, left) {
         // Inaktivera knappen så att den inte kan tryckas igen
         button.disabled = true;
         button.style.pointerEvents = 'none';
+
+        // Pausa snigelns rörelse och parallaxeffekten
+        isPaused = true;
 
         // Hämta klickposition
         const rect = document.body.getBoundingClientRect();
@@ -215,7 +219,7 @@ function createCustomButton(top, left) {
         backButton.textContent = 'Gå tillbaka';
         backButton.classList.add('choice-button');
         backButton.addEventListener('click', () => {
-
+            // Återställ zoom och bakgrundsstorlek
             document.body.style.transform = 'scale(1)';
             document.body.style.transformOrigin = 'center center';
             document.body.style.transition = 'transform 1s ease';
@@ -225,11 +229,14 @@ function createCustomButton(top, left) {
             // Visa andra knappar igen
             document.querySelectorAll('.custom-button').forEach(btn => {
                 btn.style.display = 'block';
-                btn.disabled = false; 
-                btn.style.pointerEvents = 'auto'; 
-                btn.style.opacity = '1'; 
-                btn.style.cursor = 'pointer'; 
+                btn.disabled = false; // Återaktivera knappen
+                btn.style.pointerEvents = 'auto'; // Tillåt interaktion
+                btn.style.opacity = '1'; // Återställ synlighet
+                btn.style.cursor = 'pointer'; // Återställ pekarstil
             });
+
+            // Återuppta snigelns rörelse och parallaxeffekten
+            isPaused = false;
 
             // Ta bort valknapparna
             document.body.removeChild(playButton);
@@ -239,7 +246,7 @@ function createCustomButton(top, left) {
         document.body.appendChild(playButton);
         document.body.appendChild(backButton);
 
-    
+        // Placera knapparna i mitten av skärmen
         playButton.style.position = 'absolute';
         playButton.style.top = '50%';
         playButton.style.left = '50%';
@@ -259,7 +266,9 @@ const button1 = createCustomButton('38%', '15%');
 const button2 = createCustomButton('50%', '30%');
 const button3 = createCustomButton('40%', '75%');
 
-document.addEventListener('mousemove', (event) => {     //parallax effekt
+document.addEventListener('mousemove', (event) => { // Parallax-effekt
+    if (isPaused) return; // Stoppa parallaxeffekten om den är pausad
+
     const x = (event.clientX / window.innerWidth - 0.5) * 15;
     const y = (event.clientY / window.innerHeight - 0.5) * 15;
 

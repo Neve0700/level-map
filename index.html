@@ -215,7 +215,7 @@ function createCustomButton(top, left) {
         backButton.textContent = 'Gå tillbaka';
         backButton.classList.add('choice-button');
         backButton.addEventListener('click', () => {
-            // Återställ zoom och bakgrundsstorlek
+
             document.body.style.transform = 'scale(1)';
             document.body.style.transformOrigin = 'center center';
             document.body.style.transition = 'transform 1s ease';
@@ -225,10 +225,10 @@ function createCustomButton(top, left) {
             // Visa andra knappar igen
             document.querySelectorAll('.custom-button').forEach(btn => {
                 btn.style.display = 'block';
-                btn.disabled = false; // Återaktivera knappen
-                btn.style.pointerEvents = 'auto'; // Tillåt interaktion
-                btn.style.opacity = '1'; // Återställ synlighet
-                btn.style.cursor = 'pointer'; // Återställ pekarstil
+                btn.disabled = false; 
+                btn.style.pointerEvents = 'auto'; 
+                btn.style.opacity = '1'; 
+                btn.style.cursor = 'pointer'; 
             });
 
             // Ta bort valknapparna

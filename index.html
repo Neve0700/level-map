@@ -33,11 +33,13 @@
             background-size: cover;
             height: 50px;
             aspect-ratio: 1;
+            z-index: 3;
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
             position: fixed;
-}
+            pointer-events: none;
+}           
         .banner {
             background-color: #333;
             color: white;
@@ -106,6 +108,7 @@
             top: 50%;
             left: 50%;
             border-radius: 40%;
+            z-index: 2;
             border: 10px ;
             width: 80px;
             height: 50px;
@@ -167,7 +170,7 @@ document.body.onpointermove = event => {
         left: `${clientX}px`,
         top: `${clientY}px`
     
-    }, {duration: 1000, fill: "forwards"})
+    }, {duration: 15000, fill: "forwards"})
 
 }
         
@@ -178,6 +181,10 @@ function createCustomButton(top, left) {
     button.style.left = left;
 
     button.addEventListener('click', (event) => {
+        // Inaktivera knappen så att den inte kan tryckas igen
+        button.disabled = true;
+        button.style.pointerEvents = 'none';
+
         // Hämta klickposition
         const rect = document.body.getBoundingClientRect();
         const clickX = event.clientX - rect.left;
@@ -218,8 +225,13 @@ function createCustomButton(top, left) {
             // Visa andra knappar igen
             document.querySelectorAll('.custom-button').forEach(btn => {
                 btn.style.display = 'block';
+                btn.disabled = false; // Återaktivera knappen
+                btn.style.pointerEvents = 'auto'; // Tillåt interaktion
+                btn.style.opacity = '1'; // Återställ synlighet
+                btn.style.cursor = 'pointer'; // Återställ pekarstil
             });
 
+            // Ta bort valknapparna
             document.body.removeChild(playButton);
             document.body.removeChild(backButton);
         });
@@ -227,7 +239,7 @@ function createCustomButton(top, left) {
         document.body.appendChild(playButton);
         document.body.appendChild(backButton);
 
-        // Placera knapparna i mitten av skärmen
+    
         playButton.style.position = 'absolute';
         playButton.style.top = '50%';
         playButton.style.left = '50%';
@@ -247,7 +259,7 @@ const button1 = createCustomButton('38%', '15%');
 const button2 = createCustomButton('50%', '30%');
 const button3 = createCustomButton('40%', '75%');
 
-document.addEventListener('mousemove', (event) => {
+document.addEventListener('mousemove', (event) => {     //parallax effekt
     const x = (event.clientX / window.innerWidth - 0.5) * 15;
     const y = (event.clientY / window.innerHeight - 0.5) * 15;
 

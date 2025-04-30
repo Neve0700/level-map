@@ -289,13 +289,13 @@ document.addEventListener('mousemove', (event) => { // Parallax-effekt
     const buttonX = -x * 1.6; 
     const buttonY = -y * 3;
 
-    // Uppdatera knapparnas position
+
     button1.style.transform = `translate(${buttonX}px, ${buttonY}px)`;
     button2.style.transform = `translate(${buttonX}px, ${buttonY}px)`;
     button3.style.transform = `translate(${buttonX}px, ${buttonY}px)`;
 
-    // Uppdatera Pacmans position
-    const pacmanX = -x * 1.2; // Justera intensiteten för Pacman
+   
+    const pacmanX = -x * 1.2; 
     const pacmanY = -y * 2.5;
     pacman.style.transform = `translate(${pacmanX}px, ${pacmanY}px)`;
 });
@@ -304,17 +304,17 @@ const images = ["img/pacman_open.png", "img/pacman_closed.png"];
 let pacmanInterval;
 
 button2.addEventListener('mouseenter', () => {
-    // Starta bildbyte vid hover
+
     pacmanInterval = setInterval(() => {
         index = (index + 1) % images.length;
         document.getElementById("pacman").src = images[index];
-    }, 500);
+    }, 250);
 });
 
 button2.addEventListener('mouseleave', () => {
     // Stoppa bildbyte när hover avslutas
     clearInterval(pacmanInterval);
-    document.getElementById("pacman").src = "img/pacman_open.png"; // Återställ till pacman_open
+    document.getElementById("pacman").src = "img/pacman_open.png"; 
 });
 
 const pacman = document.getElementById("pacman");

@@ -41,12 +41,12 @@
             pointer-events: none;
 }           
     #pacman {
-            width: 200px;
+            width: 100px;
             height: auto;
             position: absolute;
             top: 40%;
             left: 40%;
-            z-index: 4;
+            z-index: 2;
         }
         
         .banner {
@@ -147,7 +147,7 @@
 
     <div id="move1"></div>
 
-    <div id="pacman"></div>
+    <img id="pacman"></div>
 
     <div class="banner">
         <h1>Level design</h1>
@@ -171,14 +171,6 @@
     </div>
     
     <script>
-
-const images = ["pacman_open.png", "pacman_closed.png"];
-    let index = 0;
-
-    setInterval(() => {
-      index = (index + 1) % images.length;
-      document.getElementById("pacman").src = images[index];
-    }, 500);
 
 const move = document.getElementById("move1");
 let isPaused = false; 
@@ -294,14 +286,31 @@ document.addEventListener('mousemove', (event) => { // Parallax-effekt
     // Uppdatera bakgrundens position
     document.body.style.backgroundPosition = `${50 + x}% ${50 + y}%`;
 
-
     const buttonX = -x * 1.6; 
     const buttonY = -y * 3;
 
+    // Uppdatera knapparnas position
     button1.style.transform = `translate(${buttonX}px, ${buttonY}px)`;
     button2.style.transform = `translate(${buttonX}px, ${buttonY}px)`;
     button3.style.transform = `translate(${buttonX}px, ${buttonY}px)`;
+
+    // Uppdatera Pacmans position
+    const pacmanX = -x * 1.2; // Justera intensiteten för Pacman
+    const pacmanY = -y * 2.5;
+    pacman.style.transform = `translate(${pacmanX}px, ${pacmanY}px)`;
 });
+const images = ["img/pacman_open.png", "img/pacman_closed.png"];
+    let index = 0;
+
+    setInterval(() => {
+      index = (index + 1) % images.length;
+      document.getElementById("pacman").src = images[index];
+    }, 500);
+
+const pacman = document.getElementById("pacman");
+pacman.style.top = 'calc(30% + 60px)'; // Placera Pacman under button2
+pacman.style.left = 'calc(30% + 40px)'; // Justera positionen horisontellt
+
 </script>
 
 </body>

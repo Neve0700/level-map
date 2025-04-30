@@ -40,7 +40,7 @@
             position: fixed;
             pointer-events: none;
 }           
-    #pacman {
+        #pacman {
             width: 100px;
             height: auto;
             position: absolute;
@@ -141,6 +141,29 @@
         .choice-button:hover {
             background-color: #1d4db5;
         }
+
+        .vattentorn {
+            position: absolute;
+            top: 15%; 
+            left: 50%;
+            width: 150px; 
+            z-index: 2; 
+            transition: z-index 1s ease; 
+        }
+
+        .choice-button.play {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -60%);
+        }
+
+        .choice-button.back {
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
     </style>
 
 <body>
@@ -221,14 +244,14 @@ function createCustomButton(top, left) {
 
         const playButton = document.createElement('button');
         playButton.textContent = 'Spela spelet';
-        playButton.classList.add('choice-button');
+        playButton.classList.add('choice-button', 'play');
         playButton.addEventListener('click', () => {
             window.location.href = 'https://neve0700.github.io/Grott_aventyret/';
         });
 
         const backButton = document.createElement('button');
         backButton.textContent = 'Gå tillbaka';
-        backButton.classList.add('choice-button');
+        backButton.classList.add('choice-button', 'back');
         backButton.addEventListener('click', () => {
             // Återställ zoom och bakgrundsstorlek
             document.body.style.transform = 'scale(1)';
@@ -246,9 +269,7 @@ function createCustomButton(top, left) {
                 btn.style.cursor = 'pointer'; // Återställ pekarstil
             });
 
-     
             isPaused = false;
-
 
             document.body.removeChild(playButton);
             document.body.removeChild(backButton);
@@ -258,15 +279,6 @@ function createCustomButton(top, left) {
         document.body.appendChild(backButton);
 
 
-        playButton.style.position = 'absolute';
-        playButton.style.top = '50%';
-        playButton.style.left = '50%';
-        playButton.style.transform = 'translate(-50%, -60%)';
-
-        backButton.style.position = 'absolute';
-        backButton.style.top = '60%';
-        backButton.style.left = '50%';
-        backButton.style.transform = 'translate(-50%, -50%)';
     });
 
     document.body.appendChild(button);
@@ -277,27 +289,49 @@ const button1 = createCustomButton('38%', '15%');
 const button2 = createCustomButton('50%', '30%');
 const button3 = createCustomButton('40%', '75%');
 
-document.addEventListener('mousemove', (event) => { // Parallax-effekt
-    if (isPaused) return; 
+// Skapa ett nytt img-element
+const newImage = document.createElement('img');
+newImage.src = 'img/vattentorn.png'; // Ange sökvägen till din bild
+newImage.classList.add('vattentorn'); // Lägg till en klass för stil
+document.body.appendChild(newImage);
 
-    const x = (event.clientX / window.innerWidth - 0.5) * 15; // Justera rörelseintensiteten
+// Ändra z-index när musen är över bilden
+newImage.addEventListener('mouseenter', () => {
+    newImage.style.zIndex = '5'; // Höj z-index
+});
+
+newImage.addEventListener('mouseleave', () => {
+    setTimeout(() => {
+        newImage.style.zIndex = '2'; // Återställ z-index efter en fördröjning
+    }, 1000); // Fördröjning i millisekunder (1000ms = 1 sekund)
+});
+
+
+// Uppdatera parallax-effekten för att inkludera den nya bilden
+document.addEventListener('mousemove', (event) => {
+    if (isPaused) return;
+
+    const x = (event.clientX / window.innerWidth - 0.5) * 15;
     const y = (event.clientY / window.innerHeight - 0.5) * 15;
 
     // Uppdatera bakgrundens position
     document.body.style.backgroundPosition = `${50 + x}% ${50 + y}%`;
 
-    const buttonX = -x * 1.6; 
+    const buttonX = -x * 1.6;
     const buttonY = -y * 3;
-
 
     button1.style.transform = `translate(${buttonX}px, ${buttonY}px)`;
     button2.style.transform = `translate(${buttonX}px, ${buttonY}px)`;
     button3.style.transform = `translate(${buttonX}px, ${buttonY}px)`;
 
-   
-    const pacmanX = -x * 1.2; 
+    const pacmanX = -x * 1.2;
     const pacmanY = -y * 2.5;
     pacman.style.transform = `translate(${pacmanX}px, ${pacmanY}px)`;
+
+    // Uppdatera den nya bildens position
+    const imageX = -x * 1.8;
+    const imageY = -y * 2.8;
+    newImage.style.transform = `translate(${imageX}px, ${imageY}px)`;
 });
 const images = ["img/pacman_open.png", "img/pacman_closed.png"];
     let index = 0;
@@ -321,6 +355,16 @@ const pacman = document.getElementById("pacman");
 pacman.style.top = 'calc(30% + 60px)'; 
 pacman.style.left = 'calc(30% + 40px)'; 
 
+// Ändra z-index när musen är över Pacman
+pacman.addEventListener('mouseenter', () => {
+    pacman.style.zIndex = '5'; // Höj z-index
+});
+
+pacman.addEventListener('mouseleave', () => {
+    setTimeout(() => {
+        pacman.style.zIndex = '2'; // Återställ z-index efter en fördröjning
+    }, 1000); // Fördröjning i millisekunder (500ms = 0.5 sekunder)
+});
 </script>
 
 </body>

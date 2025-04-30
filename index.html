@@ -40,6 +40,15 @@
             position: fixed;
             pointer-events: none;
 }           
+    #pacman {
+            width: 200px;
+            height: auto;
+            position: absolute;
+            top: 40%;
+            left: 40%;
+            z-index: 4;
+        }
+        
         .banner {
             background-color: #333;
             color: white;
@@ -138,6 +147,8 @@
 
     <div id="move1"></div>
 
+    <div id="pacman"></div>
+
     <div class="banner">
         <h1>Level design</h1>
         <p>Välkommen till vår nivådesignsida! Här kan du utforska och skapa fantastiska nivåer för ditt spel.</p>
@@ -161,11 +172,19 @@
     
     <script>
 
+const images = ["pacman_open.png", "pacman_closed.png"];
+    let index = 0;
+
+    setInterval(() => {
+      index = (index + 1) % images.length;
+      document.getElementById("pacman").src = images[index];
+    }, 500);
+
 const move = document.getElementById("move1");
-let isPaused = false; // Variabel för att pausa snigelns rörelse och parallaxeffekten
+let isPaused = false; 
 
 document.body.onpointermove = event => {
-    if (isPaused) return; // Stoppa rörelsen om den är pausad
+    if (isPaused) return; 
 
     const { clientX, clientY } = event;
 
@@ -235,10 +254,10 @@ function createCustomButton(top, left) {
                 btn.style.cursor = 'pointer'; // Återställ pekarstil
             });
 
-            // Återuppta snigelns rörelse och parallaxeffekten
+     
             isPaused = false;
 
-            // Ta bort valknapparna
+
             document.body.removeChild(playButton);
             document.body.removeChild(backButton);
         });
@@ -246,7 +265,7 @@ function createCustomButton(top, left) {
         document.body.appendChild(playButton);
         document.body.appendChild(backButton);
 
-        // Placera knapparna i mitten av skärmen
+
         playButton.style.position = 'absolute';
         playButton.style.top = '50%';
         playButton.style.left = '50%';
@@ -267,15 +286,17 @@ const button2 = createCustomButton('50%', '30%');
 const button3 = createCustomButton('40%', '75%');
 
 document.addEventListener('mousemove', (event) => { // Parallax-effekt
-    if (isPaused) return; // Stoppa parallaxeffekten om den är pausad
+    if (isPaused) return; 
 
-    const x = (event.clientX / window.innerWidth - 0.5) * 15;
+    const x = (event.clientX / window.innerWidth - 0.5) * 15; // Justera rörelseintensiteten
     const y = (event.clientY / window.innerHeight - 0.5) * 15;
 
+    // Uppdatera bakgrundens position
     document.body.style.backgroundPosition = `${50 + x}% ${50 + y}%`;
 
-    const buttonX = -x * 1.7;
-    const buttonY = -y * 4.5;
+
+    const buttonX = -x * 1.6; 
+    const buttonY = -y * 3;
 
     button1.style.transform = `translate(${buttonX}px, ${buttonY}px)`;
     button2.style.transform = `translate(${buttonX}px, ${buttonY}px)`;

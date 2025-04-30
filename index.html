@@ -147,7 +147,7 @@
 
     <div id="move1"></div>
 
-    <img id="pacman"></div>
+    <img id="pacman" src="img/pacman_open.png">
 
     <div class="banner">
         <h1>Level design</h1>
@@ -301,15 +301,25 @@ document.addEventListener('mousemove', (event) => { // Parallax-effekt
 });
 const images = ["img/pacman_open.png", "img/pacman_closed.png"];
     let index = 0;
+let pacmanInterval;
 
-    setInterval(() => {
-      index = (index + 1) % images.length;
-      document.getElementById("pacman").src = images[index];
+button2.addEventListener('mouseenter', () => {
+    // Starta bildbyte vid hover
+    pacmanInterval = setInterval(() => {
+        index = (index + 1) % images.length;
+        document.getElementById("pacman").src = images[index];
     }, 500);
+});
+
+button2.addEventListener('mouseleave', () => {
+    // Stoppa bildbyte när hover avslutas
+    clearInterval(pacmanInterval);
+    document.getElementById("pacman").src = "img/pacman_open.png"; // Återställ till pacman_open
+});
 
 const pacman = document.getElementById("pacman");
-pacman.style.top = 'calc(30% + 60px)'; // Placera Pacman under button2
-pacman.style.left = 'calc(30% + 40px)'; // Justera positionen horisontellt
+pacman.style.top = 'calc(30% + 60px)'; 
+pacman.style.left = 'calc(30% + 40px)'; 
 
 </script>
 

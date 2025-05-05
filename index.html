@@ -303,18 +303,17 @@ newImage.addEventListener('mouseenter', () => {
 newImage.addEventListener('mouseleave', () => {
     setTimeout(() => {
         newImage.style.zIndex = '2'; // Återställ z-index efter en fördröjning
-    }, 1000); // Fördröjning i millisekunder (1000ms = 1 sekund)
+    }, 500); // Fördröjning i millisekunder (1000ms = 1 sekund)
 });
 
 
-// Uppdatera parallax-effekten för att inkludera den nya bilden
+
 document.addEventListener('mousemove', (event) => {
     if (isPaused) return;
 
     const x = (event.clientX / window.innerWidth - 0.5) * 15;
     const y = (event.clientY / window.innerHeight - 0.5) * 15;
 
-    // Uppdatera bakgrundens position
     document.body.style.backgroundPosition = `${50 + x}% ${50 + y}%`;
 
     const buttonX = -x * 1.6;
@@ -328,7 +327,6 @@ document.addEventListener('mousemove', (event) => {
     const pacmanY = -y * 2.5;
     pacman.style.transform = `translate(${pacmanX}px, ${pacmanY}px)`;
 
-    // Uppdatera den nya bildens position
     const imageX = -x * 1.8;
     const imageY = -y * 2.8;
     newImage.style.transform = `translate(${imageX}px, ${imageY}px)`;
@@ -342,7 +340,7 @@ button2.addEventListener('mouseenter', () => {
     pacmanInterval = setInterval(() => {
         index = (index + 1) % images.length;
         document.getElementById("pacman").src = images[index];
-    }, 250);
+    }, 750);
 });
 
 button2.addEventListener('mouseleave', () => {
@@ -357,13 +355,13 @@ pacman.style.left = 'calc(30% + 40px)';
 
 // Ändra z-index när musen är över Pacman
 pacman.addEventListener('mouseenter', () => {
-    pacman.style.zIndex = '5'; // Höj z-index
+    pacman.style.zIndex = '5'; 
 });
 
 pacman.addEventListener('mouseleave', () => {
     setTimeout(() => {
-        pacman.style.zIndex = '2'; // Återställ z-index efter en fördröjning
-    }, 1000); // Fördröjning i millisekunder (500ms = 0.5 sekunder)
+        pacman.style.zIndex = '2';
+    }, 500); 
 });
 </script>
 

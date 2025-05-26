@@ -142,13 +142,20 @@
             background-color: #1d4db5;
         }
 
+        .grotta-img {
+            position: absolute;
+            top: 40%;
+            left: calc(75% + 70px);
+            width: 130px;
+            z-index: 2;
+        }
         .vattentorn {
             position: absolute;
-            top: 15%; 
+            top: 15%;
             left: 50%;
-            width: 150px; 
-            z-index: 2; 
-            transition: z-index 1s ease; 
+            width: 150px;
+            z-index: 2;
+            transition: z-index 1s ease;
         }
 
         .choice-button.play {
@@ -163,14 +170,6 @@
             top: 60%;
             left: 50%;
             transform: translate(-50%, -50%);
-        }
-
-        .grotta-img {
-            position: absolute;
-            top: 40%;
-            left: calc(75% + 70px);
-            width: 90px;
-            z-index: 2;
         }
     </style>
 
@@ -300,12 +299,6 @@ const button3 = createCustomButton('40%', '75%');
 // Skapa ett nytt img-element för grotta.png
 const grottaImage = document.createElement('img');
 grottaImage.src = 'img/grotta.png';
-grottaImage.style.position = 'absolute';
-grottaImage.style.top = '40%';
-grottaImage.style.left = 'calc(75% + 70px)'; // Placera till höger om knappen
-// Justera storlek och z-index
-grottaImage.style.width = '90px';
-grottaImage.style.zIndex = '2';
 grottaImage.classList.add('grotta-img');
 document.body.appendChild(grottaImage);
 
@@ -313,11 +306,6 @@ document.body.appendChild(grottaImage);
 const newImage = document.createElement('img');
 newImage.src = 'img/vattentorn.png'; // Ange sökvägen till din bild
 newImage.classList.add('vattentorn'); // Lägg till en klass för stil
-newImage.style.position = 'absolute';
-newImage.style.top = '15%';
-newImage.style.left = '50%';
-newImage.style.width = '150px';
-newImage.style.zIndex = '2';
 document.body.appendChild(newImage);
 
 // Ändra z-index när musen är över bilden

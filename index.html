@@ -164,6 +164,14 @@
             left: 50%;
             transform: translate(-50%, -50%);
         }
+
+        .grotta-img {
+            position: absolute;
+            top: 40%;
+            left: calc(75% + 70px);
+            width: 90px;
+            z-index: 2;
+        }
     </style>
 
 <body>
@@ -246,7 +254,7 @@ function createCustomButton(top, left) {
         playButton.textContent = 'Spela spelet';
         playButton.classList.add('choice-button', 'play');
         playButton.addEventListener('click', () => {
-            window.location.href = 'https://neve0700.github.io/Grott_aventyret/';
+            window.location.href = 'http://rykz-hypno.github.io/Grott_aventyret/';
         });
 
         const backButton = document.createElement('button');
@@ -289,10 +297,27 @@ const button1 = createCustomButton('38%', '15%');
 const button2 = createCustomButton('50%', '30%');
 const button3 = createCustomButton('40%', '75%');
 
-// Skapa ett nytt img-element
+// Skapa ett nytt img-element för grotta.png
+const grottaImage = document.createElement('img');
+grottaImage.src = 'img/grotta.png';
+grottaImage.style.position = 'absolute';
+grottaImage.style.top = '40%';
+grottaImage.style.left = 'calc(75% + 70px)'; // Placera till höger om knappen
+// Justera storlek och z-index
+grottaImage.style.width = '90px';
+grottaImage.style.zIndex = '2';
+grottaImage.classList.add('grotta-img');
+document.body.appendChild(grottaImage);
+
+// Skapa ett nytt img-element för vattentornet
 const newImage = document.createElement('img');
 newImage.src = 'img/vattentorn.png'; // Ange sökvägen till din bild
 newImage.classList.add('vattentorn'); // Lägg till en klass för stil
+newImage.style.position = 'absolute';
+newImage.style.top = '15%';
+newImage.style.left = '50%';
+newImage.style.width = '150px';
+newImage.style.zIndex = '2';
 document.body.appendChild(newImage);
 
 // Ändra z-index när musen är över bilden
@@ -306,8 +331,7 @@ newImage.addEventListener('mouseleave', () => {
     }, 500); // Fördröjning i millisekunder (1000ms = 1 sekund)
 });
 
-
-
+// Parallax för grotta.png
 document.addEventListener('mousemove', (event) => {
     if (isPaused) return;
 
@@ -330,6 +354,11 @@ document.addEventListener('mousemove', (event) => {
     const imageX = -x * 1.8;
     const imageY = -y * 2.8;
     newImage.style.transform = `translate(${imageX}px, ${imageY}px)`;
+
+    // Parallax för grotta.png
+    const grottaX = -x * 2.2;
+    const grottaY = -y * 2.5;
+    grottaImage.style.transform = `translate(${grottaX}px, ${grottaY}px)`;
 });
 const images = ["img/pacman_open.png", "img/pacman_closed.png"];
     let index = 0;

@@ -144,9 +144,9 @@
 
         .grotta-img {
             position: absolute;
-            top: 40%;
-            left: calc(75% + 70px);
-            width: 130px;
+            top: 32%;
+            left: calc(75% + 60px);
+            width: 200px;
             z-index: 2;
         }
         .vattentorn {
@@ -216,7 +216,7 @@ document.body.onpointermove = event => {
     }, { duration: 10000, fill: "forwards" });
 };
 
-function createCustomButton(top, left) {
+function createCustomButton(top, left, url) {
     const button = document.createElement('button');
     button.classList.add('custom-button');
     button.style.top = top;
@@ -253,7 +253,7 @@ function createCustomButton(top, left) {
         playButton.textContent = 'Spela spelet';
         playButton.classList.add('choice-button', 'play');
         playButton.addEventListener('click', () => {
-            window.location.href = 'http://rykz-hypno.github.io/Grott_aventyret/';
+            window.location.href = url;
         });
 
         const backButton = document.createElement('button');
@@ -292,9 +292,10 @@ function createCustomButton(top, left) {
     return button;
 }
 
-const button1 = createCustomButton('38%', '15%');
-const button2 = createCustomButton('50%', '30%');
-const button3 = createCustomButton('40%', '75%');
+// Skapa knappar med olika webbadresser
+const button1 = createCustomButton('38%', '15%', 'https://.se');
+const button2 = createCustomButton('50%', '30%', 'http://rykz-hypno.github.io/Grott_aventyret/');
+const button3 = createCustomButton('40%', '75%', 'https://rykz-hypno.github.io/pac-vbg/');
 
 // Skapa ett nytt img-element för grotta.png
 const grottaImage = document.createElement('img');

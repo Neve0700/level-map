@@ -3,12 +3,10 @@
     
     <meta charset="UTF-8">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
-    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-straight/css/uicons-regular-straight.css'>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Ceviche+One&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Level design</title>
+    <title>Vänerspel</title>
 
 </head>
 
@@ -56,25 +54,8 @@
             z-index: 12;
             text-align: center;
             padding: 20px 0;
-            visibility: hidden;
         }
-        .banner button {
-            background-color: #555;
-            color: white;
-            border: none;
-            padding: 5px 5px;
-            border-radius: 100px;
-            height: 50px;
-            width: 50px;
-            margin: 1px;
-            cursor: pointer;
-            font-family: 'Archivo', sans-serif;
-            font-size: 25px;
-        }
-        .banner button:hover {
-            background-color: #777;
-            scale: 1.1;
-        }
+
         .logga {
             width: 150px;
             height: auto;
@@ -180,21 +161,8 @@
     <img id="pacman" src="img/pacman_open.png">
 
     <div class="banner">
-        <h1>Level design</h1>
+        <h1>Vänerspel</h1>
         <p>Välkommen till vår nivådesignsida! Här kan du utforska och skapa fantastiska nivåer för ditt spel.</p>
-        <button>
-            <i class="fi fi-rr-home"></i>
-        </button>
-        <button>
-            <i class="fi fi-rr-arrow-small-left"></i>
-        </button>
-        <button>
-            <i class="fi fi-rr-arrow-small-right"></i>
-        </button>
-        <button>
-            <i class="fi fi-rr-interrogation"></i>
-        </button>
-
         <img src="img/vit_stående_1rad.png" class="logga">
         <img src="img/horn_vanster_upp_4.png" class="vänster-kant">
 
@@ -303,24 +271,23 @@ grottaImage.src = 'img/grotta.png';
 grottaImage.classList.add('grotta-img');
 document.body.appendChild(grottaImage);
 
-// Skapa ett nytt img-element för vattentornet
-const newImage = document.createElement('img');
-newImage.src = 'img/vattentorn.png'; // Ange sökvägen till din bild
-newImage.classList.add('vattentorn'); // Lägg till en klass för stil
-document.body.appendChild(newImage);
 
-// Ändra z-index när musen är över bilden
-newImage.addEventListener('mouseenter', () => {
-    newImage.style.zIndex = '5'; // Höj z-index
+const vattentorn = document.createElement('img');
+vattentorn.src = 'img/vattentorn.png'; 
+vattentorn.classList.add('vattentorn'); 
+document.body.appendChild(vattentorn);
+
+vattentorn.addEventListener('mouseenter', () => {
+    vattentorn.style.zIndex = '5'; 
 });
 
-newImage.addEventListener('mouseleave', () => {
+vattentorn.addEventListener('mouseleave', () => {
     setTimeout(() => {
-        newImage.style.zIndex = '2'; // Återställ z-index efter en fördröjning
-    }, 500); // Fördröjning i millisekunder (1000ms = 1 sekund)
+        vattentorn.style.zIndex = '2'; 
+    }, 500); 
 });
 
-// Parallax för grotta.png
+
 document.addEventListener('mousemove', (event) => {
     if (isPaused) return;
 
@@ -342,9 +309,8 @@ document.addEventListener('mousemove', (event) => {
 
     const imageX = -x * 1.8;
     const imageY = -y * 2.8;
-    newImage.style.transform = `translate(${imageX}px, ${imageY}px)`;
+    vattentorn.style.transform = `translate(${imageX}px, ${imageY}px)`;
 
-    // Parallax för grotta.png
     const grottaX = -x * 2.2;
     const grottaY = -y * 2.5;
     grottaImage.style.transform = `translate(${grottaX}px, ${grottaY}px)`;

@@ -19,10 +19,6 @@
             height: 100vh;
             overflow: hidden;
             background-size: 110%; 
-            background-repeat: no-repeat;
-            background-position: center;
-            background-attachment: fixed; 
-            background-image: url('img/vänesborg_Ö.png');
             
         }
 
@@ -48,23 +44,23 @@
         }
         
         .banner {
-            background-color: #333;
+            background-color: rgba(0, 90, 138, 0.537);
             color: white;
-            height: 170px;
-            z-index: 12;
+            height: 100px;
+            z-index: 1000;
             text-align: center;
-            padding: 20px 0;
+            padding: 15px 0;
+            position: relative;
         }
-
         .logga {
-            width: 150px;
-            height: auto;
             position: absolute;
-            top: 40;
-            right: 40;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: auto;
         }
         .vänster-kant {
-            width: 350px;
+            width: 100px;
             height: auto;
             z-index: 0; 
             position: absolute;
@@ -117,6 +113,9 @@
             font-size: 18px;
             margin: 10px;
             transition: background-color 0.3s ease;
+            z-index: 2001; /* Se till att knapparna alltid syns överst */
+            position: absolute; /* Säkerställ att de placeras överst */
+            box-shadow: 0 4px 16px rgba(0,0,0,0.3); /* Gör knappen tydligare */
         }
 
         .choice-button:hover {
@@ -125,18 +124,24 @@
 
         .grotta-img {
             position: absolute;
-            top: 32%;
+            top: 57%;
             left: calc(75% + 60px);
-            width: 200px;
+            width: 180px;
             z-index: 2;
         }
         .vattentorn {
             position: absolute;
-            top: 15%;
+            top: 40%;
             left: 50%;
             width: 150px;
             z-index: 2;
-            transition: z-index 1s ease;
+        }
+        .kyrkaImage {
+            position: absolute;
+            top: 59%;
+            left: 38%; 
+            width: 120px;
+            z-Index: 2;
         }
 
         .choice-button.play {
@@ -152,9 +157,42 @@
             left: 50%;
             transform: translate(-50%, -50%);
         }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 1;
+            background: linear-gradient(0deg, #0a1844, #ff8c00,#81abff,#b5ceff, #0a1844,#dee9ff, #ff8c00);
+            background-size: 1200% 1200%;
+            animation: gradientLoop 120s ease-in-out infinite;
+        }
+
+        @keyframes gradientLoop {
+            0% {background-position: 0% 50%;}
+            25% {background-position: 50% 100%;}
+            50% {background-position: 100% 50%;}
+            75% {background-position: 50% 0%;}
+            100% {background-position: 0% 50%;}
+        }
+        #vbgÖ {
+            position:fixed; 
+            left: -35px;
+            width:105vw; 
+            height:105vh; 
+            object-fit:cover; 
+            z-index:1; 
+            pointer-events:none;
+        }
     </style>
 
 <body>
+
+<img id="vbgÖ" src="img/vänesborg_Ö1.png"  />
 
     <div id="move1"></div>
 
@@ -261,9 +299,9 @@ function createCustomButton(top, left, url) {
 }
 
 // Skapa knappar med olika webbadresser
-const button1 = createCustomButton('38%', '15%', 'https://youtube.com');
-const button2 = createCustomButton('50%', '30%', 'https://rykz-hypno.github.io/pac-vbg/');
-const button3 = createCustomButton('40%', '75%', 'http://rykz-hypno.github.io/Grott_aventyret/');
+const button1 = createCustomButton('72%', '20%', 'https://youtube.com');
+const button2 = createCustomButton('77%', '40%', 'https://rykz-hypno.github.io/pac-vbg/');
+const button3 = createCustomButton('70%', '74%', 'http://rykz-hypno.github.io/Grott_aventyret/');
 
 // Skapa ett nytt img-element för grotta.png
 const grottaImage = document.createElement('img');
@@ -271,6 +309,10 @@ grottaImage.src = 'img/grotta.png';
 grottaImage.classList.add('grotta-img');
 document.body.appendChild(grottaImage);
 
+const kyrkaImage = document.createElement('img');
+kyrkaImage.src = 'img/kyrka.png';
+kyrkaImage.classList.add('kyrkaImage');
+document.body.appendChild(kyrkaImage);
 
 const vattentorn = document.createElement('img');
 vattentorn.src = 'img/vattentorn.png'; 
@@ -287,6 +329,8 @@ vattentorn.addEventListener('mouseleave', () => {
     }, 500); 
 });
 
+
+const vbgÖ = document.getElementById("vbgÖ");
 
 document.addEventListener('mousemove', (event) => {
     if (isPaused) return;
@@ -314,6 +358,16 @@ document.addEventListener('mousemove', (event) => {
     const grottaX = -x * 2.2;
     const grottaY = -y * 2.5;
     grottaImage.style.transform = `translate(${grottaX}px, ${grottaY}px)`;
+
+    // Parallax för kyrkan
+    const kyrkaX = -x * 1.5;
+    const kyrkaY = -y * 2.0;
+    kyrkaImage.style.transform = `translate(${kyrkaX}px, ${kyrkaY}px)`;
+
+    // Parallax för ön
+    const öX = -x * 1.2;
+    const öY = -y * 1.2;
+    vbgÖ.style.transform = `translate(${öX}px, ${öY}px)`;
 });
 const images = ["img/pacman_open.png", "img/pacman_closed.png"];
     let index = 0;
@@ -334,8 +388,8 @@ button2.addEventListener('mouseleave', () => {
 });
 
 const pacman = document.getElementById("pacman");
-pacman.style.top = 'calc(30% + 60px)'; 
-pacman.style.left = 'calc(30% + 40px)'; 
+pacman.style.top = 'calc(71% + 60px)'; 
+pacman.style.left = 'calc(32% + 40px)'; 
 
 // Ändra z-index när musen är över Pacman
 pacman.addEventListener('mouseenter', () => {

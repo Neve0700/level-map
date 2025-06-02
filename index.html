@@ -4,207 +4,24 @@
     <meta charset="UTF-8">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" href="/img/vbg_ikon.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Ceviche+One&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vänerspel</title>
+    <title>Spelborgen - Ditt äventyr börjar här</title>
+    <link rel="stylesheet" href="style.css">
 
 </head>
 
-    <style>
-        body {
-            font-family: 'Open Sans', sans-serif;
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100vh;
-            overflow: hidden;
-            background-size: 110%; 
-            
-        }
-
-        #move1{
-            background-image: url('img/snigel.png');
-            background-size: cover;
-            height: 50px;
-            aspect-ratio: 1;
-            z-index: 3;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            position: fixed;
-            pointer-events: none;
-}           
-        #pacman {
-            width: 100px;
-            height: auto;
-            position: absolute;
-            top: 40%;
-            left: 40%;
-            z-index: 2;
-        }
-        
-        .banner {
-            background-color: rgba(0, 90, 138, 0.537);
-            color: white;
-            height: 100px;
-            z-index: 1000;
-            text-align: center;
-            padding: 15px 0;
-            position: relative;
-        }
-        .logga {
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 100px;
-            height: auto;
-        }
-        .vänster-kant {
-            width: 100px;
-            height: auto;
-            z-index: 0; 
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-        .banner h1 {
-            font-family: 'Archivo', sans-serif;
-            font-size: 2.5em;
-            margin: 0;
-        }
-        .banner p {
-            font-family: 'Archivo', sans-serif;
-            font-size: 1.2em;
-        }
-
-        .newButton {
-            background-color: #2f4bff;
-        }
-
-        button {
-            background-color: #3863ff;
-        }
-
-        .custom-button {
-            background-image: url('img/knapp1.png');
-            background-size: cover;
-            background-position: center;
-            background-color: rgba(0, 0, 0, 0);
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            border-radius: 40%;
-            z-index: 2;
-            border: 10px ;
-            width: 80px;
-            height: 50px;
-            cursor: pointer;
-        }
-
-        .choice-button {
-            background-color: #2067ff;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            border: 3px solid #071ba0;
-            font-family: 'Archivo', sans-serif;
-            font-size: 18px;
-            margin: 10px;
-            transition: background-color 0.3s ease;
-            z-index: 2001; /* Se till att knapparna alltid syns överst */
-            position: absolute; /* Säkerställ att de placeras överst */
-            box-shadow: 0 4px 16px rgba(0,0,0,0.3); /* Gör knappen tydligare */
-        }
-
-        .choice-button:hover {
-            background-color: #1d4db5;
-        }
-
-        .grotta-img {
-            position: absolute;
-            top: 57%;
-            left: calc(75% + 60px);
-            width: 180px;
-            z-index: 2;
-        }
-        .vattentorn {
-            position: absolute;
-            top: 40%;
-            left: 50%;
-            width: 150px;
-            z-index: 2;
-        }
-        .kyrkaImage {
-            position: absolute;
-            top: 59%;
-            left: 38%; 
-            width: 120px;
-            z-Index: 2;
-        }
-
-        .choice-button.play {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -60%);
-        }
-
-        .choice-button.back {
-            position: absolute;
-            top: 60%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            pointer-events: none;
-            z-index: 1;
-            background: linear-gradient(0deg, #0a1844, #ff8c00,#81abff,#b5ceff, #0a1844,#dee9ff, #ff8c00);
-            background-size: 1200% 1200%;
-            animation: gradientLoop 120s ease-in-out infinite;
-        }
-
-        @keyframes gradientLoop {
-            0% {background-position: 0% 50%;}
-            25% {background-position: 50% 100%;}
-            50% {background-position: 100% 50%;}
-            75% {background-position: 50% 0%;}
-            100% {background-position: 0% 50%;}
-        }
-        #vbgÖ {
-            position:fixed; 
-            left: -35px;
-            width:105vw; 
-            height:105vh; 
-            object-fit:cover; 
-            z-index:1; 
-            pointer-events:none;
-        }
-    </style>
-
 <body>
 
-<img id="vbgÖ" src="img/vänesborg_Ö1.png"  />
-
-    <div id="move1"></div>
-
-    <img id="pacman" src="img/pacman_open.png">
-
-    <div class="banner">
-        <h1>Vänerspel</h1>
-        <p>Välkommen till vår nivådesignsida! Här kan du utforska och skapa fantastiska nivåer för ditt spel.</p>
-        <img src="img/vit_stående_1rad.png" class="logga">
-        <img src="img/horn_vanster_upp_4.png" class="vänster-kant">
-
-    </div>
+    <img id="vbgÖ" src="img/vänesborg_Ö1.png"  />
+        <div id="move1"></div>
+        <img id="pacman" src="img/pacman_open.png">
+        <div class="banner">
+                <h1>Spelborgen</h1>
+                    <p>Starta ditt äventyr i Spelborgen en spelportal med lokal twist. Klicka på blåa knappen för att börja!.</p>
+                <img src="img/vbg_ikon.png" class="logga">
+        </div>
     
     <script>
 

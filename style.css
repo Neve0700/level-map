@@ -35,6 +35,9 @@ body {
     z-index: 1000;
     color: rgb(244, 228, 180);
     border-bottom: #242424 3px solid;
+    margin: 0px;
+    padding: 0px;
+    text-align: center;
     position: relative;
 }
 .logga {
@@ -47,14 +50,12 @@ body {
 .banner h1 {
     font-family: 'Archivo', sans-serif;
     font-size: 2.5em;
-    text-align: left;
     padding: 1px 100px;
+    -webkit-text-stroke: 2px #242424;
 }
 .banner p {
     font-family: 'Archivo', sans-serif;
     font-size: 1.2em;
-    text-align: left;
-    padding: 1px 30px;
 }
 
 .newButton {

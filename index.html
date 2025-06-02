@@ -13,7 +13,7 @@
 </head>
 
 <body>
-
+<canvas id="cloud-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:5000;"></canvas>
     <img id="vbgÖ" src="img/vänesborg_Ö1.png"  />
         <div id="move1"></div>
         <img id="pacman" src="img/pacman_open.png">
@@ -218,7 +218,78 @@ pacman.addEventListener('mouseleave', () => {
         pacman.style.zIndex = '2';
     }, 500); 
 });
-</script>
+// --- Cloud particle animation ---
+const cloudCanvas = document.getElementById('cloud-canvas');
+const ctx = cloudCanvas.getContext('2d');
+function resizeCloudCanvas() {
+    cloudCanvas.width = window.innerWidth;
+    cloudCanvas.height = window.innerHeight * 0.3;
+}
+resizeCloudCanvas();
+window.addEventListener('resize', resizeCloudCanvas);
 
+// Cloud particle definition
+class CloudParticle {
+    constructor() {
+        this.radius = 24 + Math.random() * 29; // mindre moln
+        this.x = cloudCanvas.width + this.radius + Math.random() * cloudCanvas.width;
+        this.y = 20 + Math.random() * (cloudCanvas.height - 40);
+        this.speed = 0.20 + Math.random() * 0.24;
+        this.opacity = 0.05 + Math.random() * 0.1; // högre opacitet
+        // Skapa puffar för klungan
+        this.puffs = [];
+        const puffCount = 2 + Math.floor(Math.random() * 10); 
+        for (let i = 0; i < puffCount; i++) {
+            let px, py, pr;
+            if (i === 0) {
+                px = 0;
+                py = 0;
+                pr = this.radius * (0.8 + Math.random() * 0.3);
+            } else {
+                const angle = Math.PI * (0.2 + 0.6 * Math.random());
+                const dist = this.radius * (0.4 + Math.random() * 0.7);
+                px = Math.cos(angle) * dist * (Math.random() < 0.5 ? 1 : -1);
+                py = Math.sin(angle) * dist * 0.5 * (Math.random() < 0.5 ? 1 : -1);
+                pr = this.radius * (0.4 + Math.random() * 0.4);
+            }
+            this.puffs.push({ x: px, y: py, r: pr });
+        }
+    }
+    update() {
+        this.x -= this.speed;
+        if (this.x < -this.radius * 2) {
+            this.x = cloudCanvas.width + this.radius;
+            this.y = 20 + Math.random() * (cloudCanvas.height - 40);
+        }
+    }
+    draw(ctx) {
+        ctx.save();
+        ctx.globalAlpha = this.opacity;
+        ctx.shadowColor = '#fff';
+        ctx.shadowBlur = 20;
+        ctx.fillStyle = '#fff';
+        for (const puff of this.puffs) {
+            ctx.beginPath();
+            ctx.arc(this.x + puff.x, this.y + puff.y, puff.r, 0, Math.PI * 2);
+            ctx.fill();
+        }
+        ctx.globalAlpha = 1;
+        ctx.restore();
+    }
+}
+
+const cloudParticles = Array.from({length: 28}, () => new CloudParticle()); // fler och mindre moln
+
+function animateClouds() {
+    ctx.clearRect(0, 0, cloudCanvas.width, cloudCanvas.height);
+    for (const p of cloudParticles) {
+        p.update();
+        p.draw(ctx);
+    }
+    requestAnimationFrame(animateClouds);
+}
+animateClouds();
+</script>
+<script src="moln.js"></script>
 </body>
 </html>
